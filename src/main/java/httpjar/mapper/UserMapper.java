@@ -10,6 +10,8 @@ public interface UserMapper {
 
     User selectByPrimaryKey(Integer id);
 
+    User selectByAccount(String Account);
+
     List<User> selectAll();
 
     List<User> selectAutoUpdateUsers();

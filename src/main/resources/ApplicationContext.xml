@@ -41,9 +41,10 @@
 	    <property name="basePackage" value="httpjar.mapper"/>   
 	    <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
-<!--    <bean id = "studentServiceImpl" class="httpjar.service.Impl.StudentServiceImpl"></bean>-->
 <!--    <bean id = "fileServiceImpl" class="httpjar.service.Impl.FileServiceImpl"></bean>-->
     <bean id = "testService" class="httpjar.service.Impl.TestServiceImpl"></bean>
+    <bean id = "autoUpdateServiceImpl" class="httpjar.service.Impl.AutoUpdateServiceImpl"></bean>
+    <bean id = "userServiceImpl" class="httpjar.service.Impl.UserServiceImpl"></bean>
     
 
 </beans>

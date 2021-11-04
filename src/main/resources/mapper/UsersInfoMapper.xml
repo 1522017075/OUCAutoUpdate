@@ -11,10 +11,10 @@
     delete from users_info
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="httpjar.model.po.UsersInfo">
-    insert into users_info (id, form_data, login_key, 
+  <insert id="insert" parameterType="httpjar.model.po.UsersInfo" useGeneratedKeys="true" keyProperty="id">
+    insert into users_info (form_data, login_key,
       send_key)
-    values (#{id,jdbcType=INTEGER}, #{formData,jdbcType=VARCHAR}, #{loginKey,jdbcType=VARCHAR}, 
+    values (#{formData,jdbcType=VARCHAR}, #{loginKey,jdbcType=VARCHAR},
       #{sendKey,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="httpjar.model.po.UsersInfo">
