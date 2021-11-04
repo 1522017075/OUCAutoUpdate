@@ -1,10 +1,14 @@
 package httpjar.controller;
 
+import httpjar.model.po.User;
+import httpjar.service.AutoUpdateService;
 import httpjar.service.TestService;
 import httpjar.util.WebUtil;
 
 import com.blade.mvc.annotation.GetRoute;
 import com.blade.mvc.annotation.Path;
+
+import java.util.List;
 
 @Path
 public class HelloController {
@@ -20,8 +24,9 @@ public class HelloController {
 	@GetRoute("/list")
 	public void list(){
 
-		TestService bean = WebUtil.getBean(TestService.class);
-		bean.test();
-        
+		AutoUpdateService bean = WebUtil.getBean(AutoUpdateService.class);
+		List<User> autoUpdateUsers = bean.getAutoUpdateUsers();
+		System.out.println(autoUpdateUsers.get(0).getAccount());
+
 	}
 }
