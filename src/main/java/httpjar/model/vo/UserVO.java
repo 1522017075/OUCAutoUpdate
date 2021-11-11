@@ -1,19 +1,43 @@
 package httpjar.model.vo;
 
 public class UserVO {
-	private int age;
-	private String name;
-	public int getAge() {
-		return age;
+	private Integer id;
+
+	private Boolean autoUpdate;
+
+	private String account;
+
+	private Integer userInfoId;
+
+	public Integer getId() {
+		return id;
 	}
-	public void setAge(int age) {
-		this.age = age;
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
-	public String getName() {
-		return name;
+
+	public Boolean getAutoUpdate() {
+		return autoUpdate;
 	}
-	public void setName(String name) {
-		this.name = name;
+
+	public void setAutoUpdate(Boolean autoUpdate) {
+		this.autoUpdate = autoUpdate;
 	}
-	
+
+	public String getAccount() {
+		return account;
+	}
+
+	public void setAccount(String account) {
+		this.account = account == null ? null : account.trim();
+	}
+
+	public Integer getUserInfoId() {
+		return userInfoId;
+	}
+
+	public void setUserInfoId(Integer userInfoId) {
+		this.userInfoId = userInfoId;
+	}
 }

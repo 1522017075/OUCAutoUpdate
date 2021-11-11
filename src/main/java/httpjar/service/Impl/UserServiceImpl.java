@@ -6,7 +6,9 @@ import httpjar.model.po.User;
 import httpjar.model.po.UsersInfo;
 import httpjar.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -15,9 +17,8 @@ public class UserServiceImpl implements UserService {
     private UsersInfoMapper usersInfoMapper;
 
     @Override
-    public boolean checkUser(String account) {
-        User user = userMapper.selectByAccount(account);
-        return user != null && user.getId() != 0;
+    public User checkUser(String account) {
+        return userMapper.selectByAccount(account);
     }
 
     @Override

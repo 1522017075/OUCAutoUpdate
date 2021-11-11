@@ -55,6 +55,16 @@ public class AutoUpdateServiceImpl implements AutoUpdateService {
         }
     }
 
+    @Override
+    public void cancelAutoUpdateByUserId(Integer userId) {
+        userMapper.cancelAutoUpdateByUserId(userId);
+    }
+
+    @Override
+    public void startAutoUpdateByUserId(Integer userId) {
+        userMapper.startAutoUpdateByUserId(userId);
+    }
+
     private void checkFileAndContent(File file, String content) throws IOException {
         // 不存在就创建
         if (file.exists() == false) {

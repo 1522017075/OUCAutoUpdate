@@ -17,4 +17,8 @@ public interface UserMapper {
     List<User> selectAutoUpdateUsers();
 
     int updateByPrimaryKey(User record);
+
+    int cancelAutoUpdateByUserId(Integer id);
+
+    int startAutoUpdateByUserId(Integer id);
 }

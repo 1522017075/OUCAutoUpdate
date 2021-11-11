@@ -1,36 +1,31 @@
 package httpjar.util;
 
 public class Result<T> {
-    private boolean success;// 是否成功标志
+    private boolean status;// 是否成功标志
 
     private T data;// 成功时返回的数据
-
-    private String errorMsg;// 错误信息
-
-    private int errorCode;
 
     public Result() {
     }
 
-    // 成功时的构造器
-    public Result(boolean success, T data) {
-        this.success = success;
+    // 构造器1
+    public Result(boolean status) {
+        this.status = status;
+        this.data = (T) "null";
+    }
+
+    // 构造器2
+    public Result(boolean status, T data) {
+        this.status = status;
         this.data = data;
     }
 
-    // 错误时的构造器
-    public Result(boolean success, int errorCode, String errorMsg) {
-        this.success = success;
-        this.errorMsg = errorMsg;
-        this.errorCode = errorCode;
+    public boolean isStatus() {
+        return status;
     }
 
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public T getData() {
@@ -39,21 +34,5 @@ public class Result<T> {
 
     public void setData(T data) {
         this.data = data;
-    }
-
-    public String getErrorMsg() {
-        return errorMsg;
-    }
-
-    public void setErrorMsg(String errorMsg) {
-        this.errorMsg = errorMsg;
-    }
-
-    public int getErrorCode() {
-        return errorCode;
-    }
-
-    public void setErrorCode(int errorCode) {
-        this.errorCode = errorCode;
     }
 }

@@ -11,10 +11,10 @@
     delete from users_set
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="httpjar.model.po.User" useGeneratedKeys="true" keyProperty="id">
-    insert into users_set (auto_update, account,
+  <insert id="insert" parameterType="httpjar.model.po.User">
+    insert into users_set (id, auto_update, account, 
       user_info_id)
-    values (#{autoUpdate,jdbcType=BIT}, #{account,jdbcType=VARCHAR},
+    values (#{id,jdbcType=INTEGER}, #{autoUpdate,jdbcType=BIT}, #{account,jdbcType=VARCHAR}, 
       #{userInfoId,jdbcType=INTEGER})
   </insert>
   <update id="updateByPrimaryKey" parameterType="httpjar.model.po.User">
@@ -24,19 +24,29 @@
       user_info_id = #{userInfoId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <update id="cancelAutoUpdateByUserId" parameterType="java.lang.Integer">
+    update users_set
+    set auto_update = '0'
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="startAutoUpdateByUserId" parameterType="java.lang.Integer">
+    update users_set
+    set auto_update = '1'
+    where id = #{id,jdbcType=INTEGER}
+  </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select id, auto_update, account, user_info_id
     from users_set
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, auto_update, account, user_info_id
+    from users_set
+  </select>
   <select id="selectByAccount" parameterType="java.lang.String" resultMap="BaseResultMap">
     select id, auto_update, account, user_info_id
     from users_set
     where account = #{account,jdbcType=VARCHAR}
-  </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select id, auto_update, account, user_info_id
-    from users_set
   </select>
   <select id="selectAutoUpdateUsers" resultMap="BaseResultMap">
     select id, auto_update, account, user_info_id

@@ -13,4 +13,6 @@ public interface UsersInfoMapper {
     List<UsersInfo> selectAll();
 
     int updateByPrimaryKey(UsersInfo record);
+
+
 }
