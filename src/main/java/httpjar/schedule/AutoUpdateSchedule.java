@@ -19,7 +19,7 @@ public class AutoUpdateSchedule {
         List<User> autoUpdateUsers = autoUpdateService.getAutoUpdateUsers();
         for (User autoUpdateUser : autoUpdateUsers) {
             autoUpdateService.execAutoUpdateByUserId(autoUpdateUser.getId());
-            System.out.println(autoUpdateUsers.get(0).getAccount() + "已上报成功\n");
+            System.out.println(autoUpdateUser.getAccount() + "已上报成功\n");
         }
     }
 }
