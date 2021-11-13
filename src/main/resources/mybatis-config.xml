@@ -6,5 +6,6 @@
     <mappers>
         <mapper resource="mapper/UserMapper.xml"/>
         <mapper resource="mapper/UsersInfoMapper.xml"/>
+        <mapper resource="mapper/UsersUpdateRecordMapper.xml"/>
     </mappers>
 </configuration>

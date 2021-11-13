@@ -14,7 +14,7 @@
     http://www.springframework.org/Wschema/aop/spring-aop-3.2.xsdd">
     <!-- 全局扫描包获取组件注册到IOC容器
     <context:annotation-config />
-    <context:component-scan base-package="httpjar"/>-->
+    <context:component-scan base-package="httpjar"/> -->
     
 	<!-- 配置数据源 start -->
     <bean id="jdbcDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -28,7 +28,7 @@
         <value>root</value>
     </property>
     <property name="password">
-        <value>输入你的密码</value>
+        <value>o9g9kw</value>
     </property>
     <!-- 配置数据源 end -->
 	</bean>
@@ -41,10 +41,12 @@
 	    <property name="basePackage" value="httpjar.mapper"/>   
 	    <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
+<!--    <bean id = "studentServiceImpl" class="httpjar.service.Impl.StudentServiceImpl"></bean>-->
 <!--    <bean id = "fileServiceImpl" class="httpjar.service.Impl.FileServiceImpl"></bean>-->
     <bean id = "testService" class="httpjar.service.Impl.TestServiceImpl"></bean>
-    <bean id = "autoUpdateServiceImpl" class="httpjar.service.Impl.AutoUpdateServiceImpl"></bean>
-    <bean id = "userServiceImpl" class="httpjar.service.Impl.UserServiceImpl"></bean>
-    
+    <bean id = "userService" class="httpjar.service.Impl.UserServiceImpl"></bean>
+    <bean id = "autoUpdateService" class="httpjar.service.Impl.AutoUpdateServiceImpl"></bean>
+    <bean id = "recordService" class="httpjar.service.Impl.RecordServiceImpl"></bean>
+
 
 </beans>

@@ -2,7 +2,7 @@ package httpjar.model.po;
 
 import java.util.Date;
 
-public class usersUpdateRecord {
+public class UsersUpdateRecord {
     private Integer id;
 
     private Integer userId;
@@ -10,6 +10,15 @@ public class usersUpdateRecord {
     private Date updateTime;
 
     private Boolean isSuccess;
+
+    public UsersUpdateRecord() {
+    }
+
+    public UsersUpdateRecord(Integer userId, Date updateTime, Boolean isSuccess) {
+        this.userId = userId;
+        this.updateTime = updateTime;
+        this.isSuccess = isSuccess;
+    }
 
     public Integer getId() {
         return id;

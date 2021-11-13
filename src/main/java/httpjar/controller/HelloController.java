@@ -11,10 +11,9 @@ import httpjar.service.UserService;
 import httpjar.util.Result;
 import httpjar.util.WebUtil;
 
-import jdk.nashorn.internal.parser.JSONParser;
+import lombok.extern.slf4j.Slf4j;
 
-import java.util.List;
-
+@Slf4j
 @Path
 public class HelloController {
 

@@ -4,9 +4,6 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration>
     <context id="context" targetRuntime="MyBatis3Simple">
-
-        <!-- 这句话可以让他覆盖生成的文件 -->
-        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />
         <commentGenerator>
             <property name="suppressAllComments" value="true"/>
             <property name="suppressDate" value="true"/>
@@ -16,7 +13,7 @@
                 driverClass="com.mysql.cj.jdbc.Driver"
                 connectionURL="jdbc:mysql://47.104.106.189:3306/OUCAutoUpdate?serverTimezone=UTC&amp;characterEncoding=utf8&amp;useUnicode=true&amp;useSSL=false"
                 userId="root"
-                password="输入你的密码"/>
+                password="o9g9kw"/>
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
@@ -35,15 +32,13 @@
         </javaClientGenerator>
         <!-- 相关表的配置 -->
         <table
-                tableName="test_table"
-                domainObjectName="TestTable"
+                tableName="users_update_record"
+                domainObjectName="UsersUpdateRecord"
                 enableCountByExample="false"
                 enableDeleteByExample="false"
                 enableSelectByExample="false"
                 enableUpdateByExample="false">
             <property name="useActualColumnNames" value="false" />
         </table>
-
     </context>
-
 </generatorConfiguration>

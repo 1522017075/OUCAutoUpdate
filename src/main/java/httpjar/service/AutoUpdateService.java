@@ -8,7 +8,9 @@ import java.util.List;
 public interface AutoUpdateService {
     List<User> getAutoUpdateUsers();
 
-    void execAutoUpdateByUserId(Integer userId);
+    void autoUpdate(Integer userId);
+
+    boolean execAutoUpdateByUserId(Integer userId);
 
     void cancelAutoUpdateByUserId(Integer userId);
 

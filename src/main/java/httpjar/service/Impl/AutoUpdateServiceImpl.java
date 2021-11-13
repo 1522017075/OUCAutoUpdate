@@ -2,8 +2,10 @@ package httpjar.service.Impl;
 
 import httpjar.mapper.UserMapper;
 import httpjar.mapper.UsersInfoMapper;
+import httpjar.mapper.UsersUpdateRecordMapper;
 import httpjar.model.po.User;
 import httpjar.model.po.UsersInfo;
+import httpjar.model.po.UsersUpdateRecord;
 import httpjar.service.AutoUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -11,6 +13,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 public class AutoUpdateServiceImpl implements AutoUpdateService {
@@ -21,6 +24,9 @@ public class AutoUpdateServiceImpl implements AutoUpdateService {
     @Autowired
     private UsersInfoMapper usersInfoMapper;
 
+    @Autowired
+    private UsersUpdateRecordMapper usersUpdateRecordMapper;
+
     private String UserFilePath = "/app/OUC_Auto_Update/userFiles/";
     @Override
     public List<User> getAutoUpdateUsers() {
@@ -28,7 +34,19 @@ public class AutoUpdateServiceImpl implements AutoUpdateService {
     }
 
     @Override
-    public void execAutoUpdateByUserId(Integer userId) {
+    public void autoUpdate(Integer userId) {
+        boolean isSuccess = execAutoUpdateByUserId(userId);
+
+        UsersUpdateRecord record = new UsersUpdateRecord();
+        record.setUpdateTime(new Date());
+        record.setIsSuccess(true);
+        record.setUserId(userId);
+        usersUpdateRecordMapper.insert(record);
+    }
+
+    @Override
+    public boolean execAutoUpdateByUserId(Integer userId) {
+        Boolean result = true;
         try {
             File path = new File(UserFilePath);
             if (path.exists() == false) {
@@ -51,8 +69,10 @@ public class AutoUpdateServiceImpl implements AutoUpdateService {
             System.out.println("已调用python脚本， 结果为" + i);
 
         } catch (Exception e) {
+            result = false;
             e.printStackTrace();
         }
+        return result;
     }
 
     @Override
