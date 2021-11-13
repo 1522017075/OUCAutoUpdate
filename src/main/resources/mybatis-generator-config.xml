@@ -13,7 +13,7 @@
                 driverClass="com.mysql.cj.jdbc.Driver"
                 connectionURL="jdbc:mysql://47.104.106.189:3306/OUCAutoUpdate?serverTimezone=UTC&amp;characterEncoding=utf8&amp;useUnicode=true&amp;useSSL=false"
                 userId="root"
-                password="o9g9kw"/>
+                password="输入你的密码"/>
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
