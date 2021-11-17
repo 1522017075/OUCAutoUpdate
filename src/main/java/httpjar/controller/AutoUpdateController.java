@@ -29,6 +29,16 @@ public class AutoUpdateController {
         }
     }
 
+
+    @PostRoute("/updateBySelf")
+    public void updateBySelf(@BodyParam UserVO userVO, Response response){
+        autoUpdateService.autoUpdate(userVO.getId());
+        log.info("[上报提醒] 用户 " + userVO.getAccount() + " 已上报成功!");
+
+        String result = JSON.toJSONString(new Result<String>(true));
+        response.text(result);
+    }
+
     @PostRoute("/cancelAutoUpdate")
     public void cancelAutoUpdate(@BodyParam UserVO userVO, Response response){
         autoUpdateService.cancelAutoUpdateByUserId(userVO.getId());

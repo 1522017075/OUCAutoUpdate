@@ -7,6 +7,7 @@ import httpjar.model.po.User;
 import httpjar.model.po.UsersInfo;
 import httpjar.model.po.UsersUpdateRecord;
 import httpjar.service.AutoUpdateService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.BufferedWriter;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
+@Slf4j
 public class AutoUpdateServiceImpl implements AutoUpdateService {
 
     @Autowired
@@ -39,7 +41,7 @@ public class AutoUpdateServiceImpl implements AutoUpdateService {
 
         UsersUpdateRecord record = new UsersUpdateRecord();
         record.setUpdateTime(new Date());
-        record.setIsSuccess(true);
+        record.setIsSuccess(isSuccess);
         record.setUserId(userId);
         usersUpdateRecordMapper.insert(record);
     }
@@ -65,8 +67,13 @@ public class AutoUpdateServiceImpl implements AutoUpdateService {
 //            String command="docker run -v /app/OUC_Auto_Update:/usr/src/myapp -w /usr/src/myapp python:latest python helloworld.py" + userId;   //程序路径
             String command = "python /app/OUC_Auto_Update/helloworld.py " + userId;
             Process process = Runtime.getRuntime().exec(command);
-            int i = process.waitFor();
-            System.out.println("已调用python脚本， 结果为" + i);
+            int pythonExecReturnCode = process.waitFor();
+            if(pythonExecReturnCode != 0) {
+                result = false;
+                log.info("已调用python脚本， 结果为" + pythonExecReturnCode + ", 请及时查看日志!");
+            } else {
+                log.info("已调用python脚本， 结果为" + pythonExecReturnCode);
+            }
 
         } catch (Exception e) {
             result = false;
