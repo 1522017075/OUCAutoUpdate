@@ -37,13 +37,18 @@ public class AutoUpdateServiceImpl implements AutoUpdateService {
 
     @Override
     public void autoUpdate(Integer userId) {
+        // 执行上报
         boolean isSuccess = execAutoUpdateByUserId(userId);
 
+        // 保存上报成功/失败信息
         UsersUpdateRecord record = new UsersUpdateRecord();
         record.setUpdateTime(new Date());
         record.setIsSuccess(isSuccess);
         record.setUserId(userId);
         usersUpdateRecordMapper.insert(record);
+
+        // 清空个人信息文件
+//        clearPath(new File(UserFilePath));
     }
 
     @Override
@@ -63,7 +68,6 @@ public class AutoUpdateServiceImpl implements AutoUpdateService {
             File sendKeyFile = new File(UserFilePath + userId + "_sendKey.txt");
             checkFileAndContent(sendKeyFile, usersInfo.getSendKey());
 
-            // TODO:执行py
 //            String command="docker run -v /app/OUC_Auto_Update:/usr/src/myapp -w /usr/src/myapp python:latest python helloworld.py" + userId;   //程序路径
             String command = "python /app/OUC_Auto_Update/helloworld.py " + userId;
             Process process = Runtime.getRuntime().exec(command);
@@ -103,5 +107,20 @@ public class AutoUpdateServiceImpl implements AutoUpdateService {
         }
     }
 
+    public void clearPath(File file) {
+        if(!file.exists()){
+            return;
+        }
+        if(file.isFile() || file.list()==null) {
+            file.delete();
+            System.out.println("删除了"+file.getName());
+        }else {
+            File[] files = file.listFiles();
+            for(File a:files) {
+                clearPath(a);
+            }
+//            file.delete();
+        }
+    }
 
 }

@@ -21,6 +21,11 @@ public class AutoUpdateSchedule {
         List<User> autoUpdateUsers = autoUpdateService.getAutoUpdateUsers();
         autoUpdateUsers.forEach(user -> {
             autoUpdateService.autoUpdate(user.getId());
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             log.info("[上报提醒] 用户 " + user.getAccount() + " 已上报成功!");
         });
     }
