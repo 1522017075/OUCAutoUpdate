@@ -37,13 +37,18 @@ public class AutoUpdateServiceImpl implements AutoUpdateService {
 
     @Override
     public void autoUpdate(Integer userId) {
+        // 执行上报
         boolean isSuccess = execAutoUpdateByUserId(userId);
 
+        // 保存上报成功/失败信息
         UsersUpdateRecord record = new UsersUpdateRecord();
         record.setUpdateTime(new Date());
-        record.setIsSuccess(true);
+        record.setIsSuccess(isSuccess);
         record.setUserId(userId);
         usersUpdateRecordMapper.insert(record);
+
+        // 清空个人信息文件
+//        clearPath(new File(UserFilePath));
     }
 
     @Override
@@ -63,12 +68,16 @@ public class AutoUpdateServiceImpl implements AutoUpdateService {
             File sendKeyFile = new File(UserFilePath + userId + "_sendKey.txt");
             checkFileAndContent(sendKeyFile, usersInfo.getSendKey());
 
-            // TODO:执行py
 //            String command="docker run -v /app/OUC_Auto_Update:/usr/src/myapp -w /usr/src/myapp python:latest python helloworld.py" + userId;   //程序路径
-            String command = "nohup python -u /app/OUC_Auto_Update/helloworld.py " + userId + " >> log.log 2>&1 &";
+            String command = "python /app/OUC_Auto_Update/helloworld.py " + userId;
             Process process = Runtime.getRuntime().exec(command);
-            int i = process.waitFor();
-            log.info("已为用户 " + userId + " 调用自动上报python脚本， 结果为" + i);
+            int pythonExecReturnCode = process.waitFor();
+            if(pythonExecReturnCode != 0) {
+                result = false;
+                log.info("已调用python脚本， 结果为" + pythonExecReturnCode + ", 请及时查看日志!");
+            } else {
+                log.info("已调用python脚本， 结果为" + pythonExecReturnCode);
+            }
 
         } catch (Exception e) {
             result = false;
@@ -94,9 +103,24 @@ public class AutoUpdateServiceImpl implements AutoUpdateService {
             BufferedWriter out = new BufferedWriter(new FileWriter(file));
             out.write(content);
             out.close();
-            log.info(file.getAbsolutePath() + "创建成功！");
+            System.out.println(file.getAbsolutePath() + "创建成功！");
         }
     }
 
+    public void clearPath(File file) {
+        if(!file.exists()){
+            return;
+        }
+        if(file.isFile() || file.list()==null) {
+            file.delete();
+            System.out.println("删除了"+file.getName());
+        }else {
+            File[] files = file.listFiles();
+            for(File a:files) {
+                clearPath(a);
+            }
+//            file.delete();
+        }
+    }
 
 }
