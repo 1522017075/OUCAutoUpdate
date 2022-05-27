@@ -7,6 +7,7 @@ import httpjar.model.po.User;
 import httpjar.model.po.UsersInfo;
 import httpjar.model.po.UsersUpdateRecord;
 import httpjar.service.AutoUpdateService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.BufferedWriter;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
+@Slf4j
 public class AutoUpdateServiceImpl implements AutoUpdateService {
 
     @Autowired
@@ -63,10 +65,10 @@ public class AutoUpdateServiceImpl implements AutoUpdateService {
 
             // TODO:执行py
 //            String command="docker run -v /app/OUC_Auto_Update:/usr/src/myapp -w /usr/src/myapp python:latest python helloworld.py" + userId;   //程序路径
-            String command = "python /app/OUC_Auto_Update/helloworld.py " + userId;
+            String command = "nohup python -u /app/OUC_Auto_Update/helloworld.py " + userId + " >> log.log 2>&1 &";
             Process process = Runtime.getRuntime().exec(command);
             int i = process.waitFor();
-            System.out.println("已调用python脚本， 结果为" + i);
+            log.info("已为用户 " + userId + " 调用自动上报python脚本， 结果为" + i);
 
         } catch (Exception e) {
             result = false;
@@ -92,7 +94,7 @@ public class AutoUpdateServiceImpl implements AutoUpdateService {
             BufferedWriter out = new BufferedWriter(new FileWriter(file));
             out.write(content);
             out.close();
-            System.out.println(file.getAbsolutePath() + "创建成功！");
+            log.info(file.getAbsolutePath() + "创建成功！");
         }
     }
 
