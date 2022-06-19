@@ -18,10 +18,10 @@ headers = {
 	'X-Requested-With':'XMLHttpRequest',
 	'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
 	}
-
+requests.packages.urllib3.disable_warnings()
 r = requests.post(url,data = form_data,headers = headers,cookies = Cookies,verify=False)
 
 
 fturl = 'https://sctapi.ftqq.com/' + Sendkey + '.send?title= '+time.strftime("%Y-%m-%d %X", time.localtime())+'&desp='+ r.text
 
-requests.get(fturl)
+requests.get(fturl, verify=False)
